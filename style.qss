@@ -1,0 +1,90 @@
+
+QPushButton{
+    background-color: #C0DCF2;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: beige;
+    font: bold 14px;
+    min-width: 10em;
+    padding: 6px;
+}
+
+QPushButton:hover{
+    border-style: solid;
+    border-top-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(195, 195, 195), stop:1 rgb(222, 222, 222));
+    border-right-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(197, 197, 197), stop:1 rgb(227, 227, 227));
+    border-left-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(227, 227, 227), stop:1 rgb(197, 197, 197));
+    border-bottom-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(195, 195, 195), stop:1 rgb(222, 222, 222));
+    border-width: 1px;
+    border-radius: 5px;
+    color: rgb(255,0,255);
+    padding: 2px;
+    background-color: rgb(255,255,255);
+}
+QPushButton:pressed{
+    border-style: solid;
+    border-top-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
+    border-right-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(217, 217, 217), stop:1 rgb(227, 227, 227));
+    border-left-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgb(227, 227, 227), stop:1 rgb(217, 217, 217));
+    border-bottom-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgb(215, 215, 215), stop:1 rgb(222, 222, 222));
+    border-width: 1px;
+    border-radius: 5px;
+    color: rgb(0,0,0);
+    padding: 2px;
+    background-color: rgb(142,120,255);
+}
+
+QTableView QTableCornerButton::section {
+    color: white;/*文字颜色*/
+    background-color: #C0DCF2;/*背景色*/
+    border: 5px solid #418bc9;/*边框*/
+    border-top-left-radius:10px;/*边框圆角*/
+    border-color: #C0DCF2;/*边框颜色*/
+    font: 10px;/*字体大小*/
+    padding:0px 0 0 0px;/*内边距*/
+}
+QHeaderView {
+    color: white;
+    font: bold 10pt;
+    background-color: #C0DCF2;
+    border-radius:0px;
+    min-height:29px;
+}
+QHeaderView::section {
+    color: white;
+    background-color:#C0DCF2;
+
+}
+QLabel{
+    font-size: 20px
+}
+QLineEdit {
+        border: 1px solid #A0A0A0; /* 边框宽度为1px，颜色为#A0A0A0 */
+        border-radius: 10px; /* 边框圆角 */
+        padding-left: 5px; /* 文本距离左边界有5px */
+        background-color: #F2F2F2; /* 背景颜色 */
+        color: #A020F0; /* 文本颜色 */
+        selection-background-color: #A0A0A0; /* 选中文本的背景颜色 */
+        selection-color: #F2F2F2; /* 选中文本的颜色 */
+        font-family: "Microsoft YaHei"; /* 文本字体族 */
+        font-size: 10pt; /* 文本字体大小 */
+}
+QLineEdit:hover { /* 鼠标悬浮在QLineEdit时的状态 */
+        border: 1px solid #298DFF;
+        background-color: #F2F2F2;
+        color: #298DFF;
+        selection-background-color: #298DFF;
+        selection-color: #F2F2F2;
+}
+QLineEdit[echoMode="2"] { /* QLineEdit有输入掩码时的状态 */
+        lineedit-password-character: 9679;
+        lineedit-password-mask-delay: 2000;
+}
+QLineEdit:read-only { /* QLineEdit在只读时的状态 */
+        background-color: #CDCDCD;
+        color: #A020F0;
+}
+QTextEdit{
+    font-size: 20px
+}

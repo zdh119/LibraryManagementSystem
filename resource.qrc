@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style.qss</file>
+        <file>admin.ico</file>
+        <file>delete.ico</file>
+        <file>help.ico</file>
+        <file>logout.ico</file>
+        <file>register.ico</file>
+        <file>search.ico</file>
+        <file>system.ico</file>
+        <file>widget.ico</file>
+        <file>布.花.png</file>
+        <file>布质花纹.jpg</file>
+        <file>粉碎.png</file>
+        <file>花纹古典底纹素材.png</file>
+        <file>交响曲.png</file>
+        <file>绿色圆环.png</file>
+        <file>细方格平铺素材.png</file>
+        <file>add.ico</file>
+    </qresource>
+</RCC>
