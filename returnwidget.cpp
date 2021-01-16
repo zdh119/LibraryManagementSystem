@@ -63,6 +63,19 @@ ReturnWidget::ReturnWidget(QString account, QWidget *parent) : QWidget(parent)
     connect(returnButton, &QPushButton::clicked, this, &ReturnWidget::returnButtonClick);
     connect(confirmButton, &QPushButton::clicked, this, &ReturnWidget::confirmButtonClick);
 
+    //设置tab顺序
+    this->setTabOrder(this->bookIDLine, this->returnButton);
+    this->setTabOrder(this->returnButton, this->confirmButton);
+    this->setTabOrder(this->confirmButton, this->bookIDLine);
+}
+void ReturnWidget::keyPressEvent(QKeyEvent *event){
+    if(event->key()==Qt::Key_Return) {
+        if(this->returnButton->hasFocus()){
+            returnButtonClick();
+        } else if(this->confirmButton->hasFocus()){
+            confirmButtonClick();
+        }
+    }
 }
 
 //还书按钮槽函数

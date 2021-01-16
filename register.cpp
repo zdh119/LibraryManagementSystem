@@ -14,6 +14,8 @@ Register::Register(QWidget *parent) : QWidget(parent)
     confireLabel->setAlignment(Qt::AlignCenter);
     registerButton = new QPushButton("注册");
     backToLoginButton = new QPushButton("返回");
+    //设置快捷键
+    backToLoginButton->setShortcut(tr("ctrl+left"));
 
     accountLineEdit = new QLineEdit;
     accountLineEdit->setPlaceholderText("请输入账户，不能有空格");
@@ -53,6 +55,12 @@ Register::Register(QWidget *parent) : QWidget(parent)
     connect(registerButton, &QPushButton::clicked, this, &Register::registerButtonClick);
     connect(backToLoginButton, &QPushButton::clicked, this, &Register::backToLoginButtonClick);
 }
+void Register::keyPressEvent(QKeyEvent *event){
+    if(event->key()== Qt::Key_Return){
+        registerButtonClick();
+    }
+}
+
 //向登录窗口发送关闭注册窗口信号
 void Register::closeEvent(QCloseEvent *){
     emit closeRegisterWidget();

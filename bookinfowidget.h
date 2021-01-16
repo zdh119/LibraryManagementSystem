@@ -7,7 +7,7 @@
 #include <QWidget>
 #include <QSqlDatabase>
 #include <QTextEdit>
-
+#include <QKeyEvent>
 class BookInfoWidget : public QWidget
 {
     Q_OBJECT
@@ -22,6 +22,8 @@ public:
 
     //存储当前选中的列号
     QModelIndex checkedIndex;
+
+    void keyPressEvent(QKeyEvent *event);
 
 signals:
     //借书信号

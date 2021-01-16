@@ -2,7 +2,6 @@
 #include "databaseoperation.h"
 #include <QGridLayout>
 #include <QLabel>
-#include <QPushButton>
 #include <QMessageBox>
 BorrowWidget::BorrowWidget(QString account, QWidget *parent) : QWidget(parent)
 {
@@ -32,7 +31,7 @@ BorrowWidget::BorrowWidget(QString account, QWidget *parent) : QWidget(parent)
     returnDateEdit->setMaximumDate(QDate::currentDate().addDays(90));  // 归还日期不得超过3个月
     returnDateEdit->setCalendarPopup(true);
 
-    QPushButton *confirmButton = new QPushButton("确定");
+    confirmButton = new QPushButton("确定");
     //布局
     QGridLayout *gridLayout = new QGridLayout;
     gridLayout->addWidget(accountLabel, 2, 0);
@@ -52,8 +51,19 @@ BorrowWidget::BorrowWidget(QString account, QWidget *parent) : QWidget(parent)
     this->setPalette(palette);
 
     connect(confirmButton, &QPushButton::clicked, this, &BorrowWidget::confirmButtonClick);
-
+    //设置tab顺序
+    this->setTabOrder(this->bookIDLine, this->returnDateEdit);
+    this->setTabOrder(this->returnDateEdit, this->confirmButton);
+    this->setTabOrder(this->confirmButton, this->bookIDLine);
 }
+void BorrowWidget::keyPressEvent(QKeyEvent *event){
+    if(event->key()==Qt::Key_Return) {
+        if(this->confirmButton->hasFocus()){
+            confirmButtonClick();
+        }
+    }
+}
+
 //借书确认
 void BorrowWidget::confirmButtonClick(){
     if(bookIDLine->text()==""){

@@ -18,6 +18,8 @@ public:
     ~Login();
     //注册窗口
     Register *registerWidget;
+
+    void keyPressEvent(QKeyEvent *event);
 protected slots:
     //用户登录
     void userLoginButtonClick();

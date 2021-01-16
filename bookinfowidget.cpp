@@ -104,7 +104,15 @@ BookInfoWidget::BookInfoWidget(Login::Model Model,QWidget *parent) : QWidget(par
     connect(modifyBookButton, &QPushButton::clicked, this, &BookInfoWidget::modifyBookButtonClick);
     connect(deleteBookButton, &QPushButton::clicked, this, &BookInfoWidget::deleteBookButtonClick);
     connect(bookInfoTableView, &QTableView::doubleClicked, this, &BookInfoWidget::bookInfoTableViewClick);
+    //设置tab顺序
+    this->setTabOrder(borrowBookButton,borrowBookButton);
 }
+void BookInfoWidget::keyPressEvent(QKeyEvent *event){
+    if(event->key()==Qt::Key_Return) {
+        borrowBookButtonClick();
+    }
+}
+
 //显示图书详细信息
 void BookInfoWidget::setBookInfo(QString bookName){
     //查询数据库该图书的信息，并显示在bookInfoView中

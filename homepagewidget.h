@@ -10,6 +10,7 @@
 #include <QLineEdit>
 #include <QSqlTableModel>
 #include <QKeyEvent>
+#include <QLabel>
 class HomePageWidget : public QWidget
 {
     Q_OBJECT
@@ -30,7 +31,7 @@ public slots:
     void searchButtonClick();
     void sortButtonClick();
     void homePageTableViewClick(QModelIndex index);
-private:
+public:
     //搜索
     QRadioButton *searchByBookName;
     QRadioButton *searchByAuthor;

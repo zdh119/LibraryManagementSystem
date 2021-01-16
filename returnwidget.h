@@ -4,12 +4,14 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QWidget>
-
+#include <QKeyEvent>
 class ReturnWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit ReturnWidget(QString account, QWidget *parent = 0);
+
+    void keyPressEvent(QKeyEvent *event);
 
 public slots:
     //还书
@@ -26,7 +28,7 @@ private:
     QLineEdit *bookNameLine;
     QLineEdit *borrowDateLine;
     QLineEdit *returnDateLine;
-
+    QPushButton *returnButton;
 };
 
 #endif // RETURNWIDGET_H

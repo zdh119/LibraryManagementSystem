@@ -28,6 +28,7 @@ public:
     BorrowInfoWidget *borrowInfoWidget;
     //我的
     MyWidget *myWidget;
+
 public slots:
     //切换至图书详情窗口
     void changeToBookInfoWidget();

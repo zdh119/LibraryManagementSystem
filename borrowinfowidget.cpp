@@ -6,6 +6,7 @@
 #include <QSqlError>
 #include <QHeaderView>
 #include <QAction>
+#include <QShortcut>
 BorrowInfoWidget::BorrowInfoWidget( QWidget *parent) : QWidget(parent)
 {
 
@@ -34,8 +35,9 @@ BorrowInfoWidget::BorrowInfoWidget( QWidget *parent) : QWidget(parent)
     searchLayout->addWidget(searchButton);
     searchModelLayout->addWidget(searchModelLabel);
     searchModelLayout->addWidget(searchByBookName);
-    searchModelLayout->addWidget(searchByID);
     searchModelLayout->addWidget(searchByUserAccount);
+    searchModelLayout->addWidget(searchByID);
+
     searchModelLayout->addWidget(searchByFuzzy);
 
     VBLayout->addLayout(searchLayout);
@@ -52,6 +54,26 @@ BorrowInfoWidget::BorrowInfoWidget( QWidget *parent) : QWidget(parent)
     this->Model = Model;
 
     connect(searchButton, &QPushButton::clicked, this, &BorrowInfoWidget::searchButtonClick);
+
+    //设置tab顺序
+    this->setTabOrder(this->searchLineEdit, this->searchLineEdit);
+    //设置快捷键
+    connect(new QShortcut(QKeySequence(tr("ctrl+f")), this), &QShortcut::activated, [=]{
+       searchLineEdit->setFocus();
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+1")), this), &QShortcut::activated, [=]{
+       searchByBookName->setChecked(true);
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+2")), this), &QShortcut::activated, [=]{
+       searchByUserAccount->setChecked(true);
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+3")), this), &QShortcut::activated, [=]{
+       searchByID->setChecked(true);
+    });
+
+    connect(new QShortcut(QKeySequence(tr("alt+0")), this), &QShortcut::activated, [=]{
+       searchByFuzzy->setChecked(!searchByFuzzy->isChecked());
+    });
 }
 //搜索借阅记录
 void BorrowInfoWidget::searchButtonClick(){

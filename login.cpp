@@ -61,12 +61,19 @@ Login::~Login()
 {
 
 }
+void Login::keyPressEvent(QKeyEvent *event){
+    if(event->key()==Qt::Key_Return) {
+        userLoginButtonClick();
+    }
+}
+
 //用户登录
 void Login::userLoginButtonClick(){
     QString account = accountLineEdit->text();
     QString password = passwordLineEdit->text();
     if(!DatabaseOperation::checkAccount(account, password, "user")){
         QMessageBox::information(this, tr("登录失败"), tr("账户不存在或密码不正确。"));
+        passwordLineEdit->clear();
     }
     else{
         close();

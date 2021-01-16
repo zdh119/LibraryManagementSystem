@@ -9,6 +9,7 @@
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QAction>
+#include <QShortcut>
 HomePageWidget::HomePageWidget(QWidget *parent) : QWidget(parent)
 {
 
@@ -22,6 +23,7 @@ HomePageWidget::HomePageWidget(QWidget *parent) : QWidget(parent)
     searchAction->setIcon(QIcon(":/search.ico"));
     searchLineEdit->addAction(searchAction,QLineEdit::LeadingPosition);
     searchLineEdit->setPlaceholderText("请输入书名或ID或类别进行搜索——默认情况下，执行内容为空的模糊搜索");
+
     searchButton = new QPushButton("搜索");
     searchGroup = new QButtonGroup(this);
     QLabel *searchModelLabel = new QLabel("搜索模式");
@@ -37,11 +39,13 @@ HomePageWidget::HomePageWidget(QWidget *parent) : QWidget(parent)
     searchGroup->addButton(searchByAuthor);
     searchGroup->addButton(searchByID);
     searchGroup->addButton(searchByCategory);
+
     //排序相关
     sortGroup = new QButtonGroup(this);
     sortButton = new QPushButton("排序");
     sortByPrice = new QRadioButton("价格");
     sortByID = new QRadioButton("ID");
+    sortByID->setChecked(true);
     sortGroup->addButton(sortByPrice);
     sortGroup->addButton(sortByID);
 
@@ -100,6 +104,30 @@ HomePageWidget::HomePageWidget(QWidget *parent) : QWidget(parent)
     connect(sortButton, &QPushButton::clicked, this, &HomePageWidget::sortButtonClick);
     connect(homePageTableView, &QTableView::doubleClicked, this, &HomePageWidget::homePageTableViewClick);
     connect(updateButton, &QPushButton::clicked, this, &HomePageWidget::updateHomePageTableView);
+
+    //设置tab顺序
+    this->setTabOrder(this->searchLineEdit, this->searchLineEdit);
+    //设置快捷键
+    connect(new QShortcut(QKeySequence(tr("ctrl+f")), this), &QShortcut::activated, [=]{
+       searchLineEdit->setFocus();
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+1")), this), &QShortcut::activated, [=]{
+       searchByBookName->setChecked(true);
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+2")), this), &QShortcut::activated, [=]{
+       searchByAuthor->setChecked(true);
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+3")), this), &QShortcut::activated, [=]{
+       searchByID->setChecked(true);
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+4")), this), &QShortcut::activated, [=]{
+       searchByCategory->setChecked(true);
+    });
+    connect(new QShortcut(QKeySequence(tr("alt+0")), this), &QShortcut::activated, [=]{
+       searchByFuzzy->setChecked(!searchByFuzzy->isChecked());
+    });
+
+
 }
 //搜索按钮槽函数
 void HomePageWidget::searchButtonClick(){
@@ -107,9 +135,9 @@ void HomePageWidget::searchButtonClick(){
     QString  searchContent = searchLineEdit->text();
     if(!searchByFuzzy->isChecked()){//精确搜索
         if(searchByBookName->isChecked()) searchModel = 0;
-        if(searchByAuthor->isChecked()) searchModel = 1;
-        if(searchByID->isChecked()) searchModel = 2;
-        if(searchByCategory->isChecked()) searchModel = 3;
+        else if(searchByAuthor->isChecked()) searchModel = 1;
+        else if(searchByID->isChecked()) searchModel = 2;
+        else if(searchByCategory->isChecked()) searchModel = 3;
     }
     else{
         if(searchByBookName->isChecked()) searchModel = 4;
@@ -166,9 +194,19 @@ void HomePageWidget::searchButtonClick(){
 
 }
 void HomePageWidget::keyPressEvent(QKeyEvent *event){
-    if(event->key()==Qt::Key_Return){
+    switch (event->key()) {
+    case Qt::Key_Return:
         searchButtonClick();
+        break;
+    case Qt::Key_F5:
+        updateHomePageTableView();
+        break;
+
+    default:
+
+        break;
     }
+
 }
 
 void HomePageWidget::sortButtonClick(){
